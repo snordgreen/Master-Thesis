@@ -1,0 +1,109 @@
+%% Creator: Matplotlib, PGF backend
+%%
+%% To include the figure in your LaTeX document, write
+%%   \input{<filename>.pgf}
+%%
+%% Make sure the required packages are loaded in your preamble
+%%   \usepackage{pgf}
+%%
+%% Figures using additional raster images can only be included by \input if
+%% they are in the same directory as the main LaTeX file. For loading figures
+%% from other directories you can use the `import` package
+%%   \usepackage{import}
+%% and then include the figures with
+%%   \import{<path to file>}{<filename>.pgf}
+%%
+%% Matplotlib used the following preamble
+%%   \usepackage{fontspec}
+%%   \setmainfont{DejaVu Serif}
+%%   \setsansfont{DejaVu Sans}
+%%   \setmonofont{DejaVu Sans Mono}
+%%
+\begingroup%
+\makeatletter%
+\begin{pgfpicture}%
+\pgfpathrectangle{\pgfpointorigin}{\pgfqpoint{5.050000in}{3.100000in}}%
+\pgfusepath{use as bounding box, clip}%
+\begin{pgfscope}%
+\pgfsetbuttcap%
+\pgfsetmiterjoin%
+\definecolor{currentfill}{rgb}{1.000000,1.000000,1.000000}%
+\pgfsetfillcolor{currentfill}%
+\pgfsetlinewidth{0.000000pt}%
+\definecolor{currentstroke}{rgb}{1.000000,1.000000,1.000000}%
+\pgfsetstrokecolor{currentstroke}%
+\pgfsetdash{}{0pt}%
+\pgfpathmoveto{\pgfqpoint{0.000000in}{0.000000in}}%
+\pgfpathlineto{\pgfqpoint{5.050000in}{0.000000in}}%
+\pgfpathlineto{\pgfqpoint{5.050000in}{3.100000in}}%
+\pgfpathlineto{\pgfqpoint{0.000000in}{3.100000in}}%
+\pgfpathclose%
+\pgfusepath{fill}%
+\end{pgfscope}%
+\begin{pgfscope}%
+\pgfsys@transformshift{0.521429in}{0.147143in}%
+\pgftext[left,bottom]{\pgfimage[interpolate=true,width=4.385714in,height=2.928571in]{fig/currentmap-hires-img0.png}}%
+\end{pgfscope}%
+\begin{pgfscope}%
+\pgfsetfillopacity{1.000000}%
+\pgfsetstrokeopacity{1.000000}%
+\pgftext[x=0.485165in,y=0.268646in,right,]{\sffamily\fontsize{10.000000}{12.000000}\selectfont \(\displaystyle {61.4\si{\degree}\/N}\)}%
+\end{pgfscope}%
+\begin{pgfscope}%
+\pgfsetfillopacity{1.00000}%
+\pgfsetstrokeopacity{1.00000}%
+%\pgftext[x=0.485165in,y=0.944694in,right,]{\sffamily\fontsize{10.000000}{12.000000}\selectfont \(\displaystyle {61.45\si{\degree}\/N}\)}%
+\end{pgfscope}%
+\begin{pgfscope}%
+\pgfsetfillopacity{1.00000}%
+\pgfsetstrokeopacity{1.00000}%
+\pgftext[x=0.485165in,y=1.617828in,right,]{\sffamily\fontsize{10.000000}{12.000000}\selectfont \(\displaystyle {61.5\si{\degree}\/N}\)}%
+\end{pgfscope}%
+\begin{pgfscope}%
+\pgfsetfillopacity{1.00000}%
+\pgfsetstrokeopacity{1.00000}%
+%\pgftext[x=0.485165in,y=2.293876in,right,]{\sffamily\fontsize{10.000000}{12.000000}\selectfont \(\displaystyle {61.55\si{\degree}\/N}\)}%
+\end{pgfscope}%
+\begin{pgfscope}%
+\pgfsetfillopacity{1.00000}%
+\pgfsetstrokeopacity{1.00000}%
+\pgftext[x=0.485165in,y=2.969924in,right,]{\sffamily\fontsize{10.000000}{12.000000}\selectfont \(\displaystyle {61.6\si{\degree}\/N}\)}%
+\end{pgfscope}%
+\begin{pgfscope}%
+\pgfsetfillopacity{1.00000}%
+\pgfsetstrokeopacity{1.00000}%
+\pgftext[x=0.778022in,y=0.111290in,,top]{\sffamily\fontsize{10.000000}{12.000000}\selectfont \(\displaystyle {4.9\si{\degree}\/E}\)}%
+\end{pgfscope}%
+\begin{pgfscope}%
+\pgfsetfillopacity{1.00000}%
+\pgfsetstrokeopacity{1.00000}%
+\pgftext[x=1.424930in,y=0.111290in,,top]{\sffamily\fontsize{10.000000}{12.000000}\selectfont \(\displaystyle {5\si{\degree}\/E}\)}%
+\end{pgfscope}%
+\begin{pgfscope}%
+\pgfsetfillopacity{1.00000}%
+\pgfsetstrokeopacity{1.00000}%
+\pgftext[x=2.071838in,y=0.111290in,,top]{\sffamily\fontsize{10.000000}{12.000000}\selectfont \(\displaystyle {5.1\si{\degree}\/E}\)}%
+\end{pgfscope}%
+\begin{pgfscope}%
+\pgfsetfillopacity{1.00000}%
+\pgfsetstrokeopacity{1.00000}%
+\pgftext[x=2.714375in,y=0.111290in,,top]{\sffamily\fontsize{10.000000}{12.000000}\selectfont \(\displaystyle {5.2\si{\degree}\/E}\)}%
+\end{pgfscope}%
+\begin{pgfscope}%
+\pgfsetfillopacity{1.00000}%
+\pgfsetstrokeopacity{1.00000}%
+\pgftext[x=3.361283in,y=0.111290in,,top]{\sffamily\fontsize{10.000000}{12.000000}\selectfont \(\displaystyle {5.3\si{\degree}\/E}\)}%
+\end{pgfscope}%
+\begin{pgfscope}%
+\pgfsetfillopacity{1.00000}%
+\pgfsetstrokeopacity{1.00000}%
+\pgftext[x=4.008191in,y=0.111290in,,top]{\sffamily\fontsize{10.000000}{12.000000}\selectfont \(\displaystyle {5.4\si{\degree}\/E}\)}%
+\end{pgfscope}%
+\begin{pgfscope}%
+\pgfsetfillopacity{1.00000}%
+\pgfsetstrokeopacity{1.00000}%
+\pgftext[x=4.655099in,y=0.111290in,,top]{\sffamily\fontsize{10.000000}{12.000000}\selectfont \(\displaystyle {5.5\si{\degree}\/E}\)}%
+\end{pgfscope}%
+\end{pgfpicture}%
+\makeatother%
+\endgroup%
