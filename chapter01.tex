@@ -1,0 +1,47 @@
+% !TEX encoding = UTF-8 Unicode
+%!TEX root = thesis.tex
+% !TEX spellcheck = en-US
+%%=========================================
+\chapter{Introduction}
+
+%[MAY KEEP SOME OF THE FOLLOWING, NEED TO PIVOT TO 3D AND EXPLAIN WHY THIS IS IMPORTANT]\\
+
+Consider a highly complex transport system such as the oceanic currents or atmospheric winds. Although the fundamental dynamics of these systems are well-known, their immense complexity impedes accurate description. The main obstacles to our understanding of complex transport systems are usually enormous computational requirements and limited data availability. This prompts us to approach these transport problems in a less ambitious manner, simply aiming to understand the macro-level structures of the underlying system. In many cases, such an approach could prove sufficient, as the idiosyncrasies of individual particle flow trajectories are insignificant in the context of most practical applications.
+
+Over the course of the past two decades, the concept of Lagrangian coherent structures (LCSs) has been proposed and developed as a tool for understanding complex flow systems on a macro-level. LCSs may be seen as the overarching structures, or skeletons, governing the macro-level behavior of transport systems. Specifically, LCSs are the most repelling, attracting or shearing formations that shape tracer trajectory patterns in unsteady dynamical systems. Furthermore, LCSs may be divided into three main categories, namely: hyperbolic, parabolic, and elliptic. Where parabolic and elliptic LCSs respectively describe maximally shearing material lines and Lagrangian vortices, hyperbolic LCSs represent maximally repelling or attracting material surfaces \citep{LCSreview}. 
+
+Hyperbolic LCSs are of particular interest with respect to application. This is because transport barriers --- often identified as hyperbolic LCSs through which no particle may move within a specific timespan --- are considered particularly useful in terms of anticipating key system characteristics. Likely areas of application include predicting the spread of oil spills in oceanic currents to aid cleanup efforts. Similarly, forecasting dissemination of volcanic ash could provide airline companies with an opportunity to divert exposed flights.
+
+Although significant work has been done detailing methods for LCS identification for two-dimensional transport systems, little work has been dedicated to extending these methods to three dimensions. It has been common practice to identify LCSs in three-dimensional systems by computing a set of two-dimensional LCSs, merging them into coherent surfaces by use of some interpolation scheme \citep{Oettinger}. This approach is outlined by for example \cite{Blazevski}. Although allowing us to investigate system dynamics in three dimensions, this method ignores transport orthogonal to these two-dimensional system slices.
+
+While an adequate theoretical foundation for three-dimensional LCS theory exists, implementing three-dimensional methods for identification of hyperbolic LCSs is impeded both by increased complexity and hardware requirements. Moreover, many important transport systems may reasonably be approximated as two-dimensional, neglecting dynamics of a subordinate axis. The extent to which it is beneficial to replace two-dimensional methods for identification of LCSs with their three-dimensional counterparts is therefore still unknown and probably case dependent.
+
+This study aims to utilize the descriptions of LCSs provided by \cite{Haller14} and \cite{Oettinger}, as well as the method of geodesic levelsets first described by \cite{GeodesicLevelSets}, to compute three-dimensional hyperbolic LCSs. Hoping to demonstrate the efficacy of this approach, several reference results are computed, as well as a case based on modelled ocean currents.
+
+%%=========================================
+\section{Background}
+
+Coined in 2000 by Haller and Yuan, the term  "Lagrangian coherent structure" (LCS) refers to the overarching structures framing chaotic flow system behavior. LCS theory has over the past two decades been developed as an alternative to traditional transport system modelling for systems exhibiting high sensitivity to initial conditions. Early on, identification of hyperbolic LCSs was focused on utilizing finite-time Lyapunov exponent (FTLE) fields to identify surfaces forming local extrema with regard to repulsion or attraction. A thorough and rigorous description of the FTLE approach to identification of hyperbolic LCSs may be found in \cite{Shadden05}.  However, \cite{Haller14} demonstrates that this approach produces both false positives and false negatives, making the case for a variational method. A numerical implementation of this method for two-dimensional systems is outlined in \cite{Haller12}.
+
+Noting that LCSs in three-dimensional systems have so far commonly been computed by combining LCSs in two-dimensional domain cross sections, \cite{Oettinger} argue for using an autonomous dynamical system to compute trajectories within the target LCS surfaces. While improving upon existing methods in terms of truly acknowledging the three-dimensional dynamics of these systems, \cite{Oettinger} seem content with simply computing surfaces within which LCSs may exist. Inspired by \cite{Oettinger}, this study aims to combine the use of this autonomous dynamical system with the ideas of \cite{Haller14}, as well as dedicated methods of computing manifolds in three dimensions. Hoping to develop a method for identifying three-dimensional hyperbolic LCSs, this investigation is intended as a reasonable extrapolation of \cite{Haller12}'s method to three-dimensional systems.
+
+
+% This description does however leave out some crucial details regarding the actual selection of LCSs. Moreover, no systematic investigation has been carried out regarding the sensitivity of either the variational or FTLE based methods to choice of interpolation scheme, when applied to grid data.
+
+%However, general studies have been made as to the sensitivity of numerical particle transport to interpolation, sampling, and integration schemes. This includes \cite{TimeInterpolation} considering the interaction between time interpolation and numerical integrators, as well as a more general study by \cite{Mancho} where various interpolation schemes in both space and time are discussed. As already noted, these general studies do not consider the implications of their results for identification of LCS.
+
+%%=========================================
+%\subsection*{Problem Formulation and Objectives}
+
+%[BRIEF DESCRIPTION OF WHAT WE ARE TRYING TO DO AND HOW WE ARE GOING TO DO IT]
+
+%\noindent [MOVE INTO INTRODUCTION?]
+
+%This investigation aims to improve our understanding of the sensitivity of hyperbolic LCS identification by their variational theory to choice of interpolation scheme. Furthermore, the performance of each interpolation scheme is to be tested for varying levels of data availability.
+
+%The ultimate objective of this study is to provide some guidance to practical application of LCS theory in terms of appropriate interpolation scheme selection. This main objective includes several intermediate milestones. The first of these is the successful implementation of tracer advection based on a dynamically sampled and interpolated velocity field, allowing for interpolator performance tests.
+
+%The second crucial milestone would be to successfully reproduce the LCS identification results presented in \cite{Haller12} for the double gyre, substantiating both the overarching method and this specific implementation. Finally, the implementation must be executable for appropriate parameter choices. This necessitates the use of parallel programming by appropriate application of for instance MPI.
+
+
+

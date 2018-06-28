@@ -1,0 +1,79 @@
+% !TEX encoding = UTF-8 Unicode
+%!TEX root = thesis.tex
+% !TEX spellcheck = en-US
+%%=========================================
+
+\chapter{Existence criteria for repelling hyperbolic LCSs in three dimensions}\label{ch:appendix_a}
+
+According to \cite{Haller14Errata}, a compact material surface $\mathcal{M}(t)\subset U$ is a repelling LCS over the time interval $[t_0,t]$ if and only if the following conditions hold:
+
+\begin{align}\label{eq:Original_ExistenceConditions}
+\begin{aligned}
+	1.&\quad \lambda_{n-1}(\vec{x}_0) \neq \lambda_n(\vec{x}_0) > 1,\\
+	2.&\quad \rm{The \; matrix \;} \vec{L}(\vec{x}_0)  \; is \; positive \; definite \; for \; all \; \vec{x}_0 \in \mathcal{M}(t_0),\\
+	3.&\quad \bm{\xi}_n(\vec{x}_0) \perp \vec{T}_{\vec{x}_0}\mathcal{M}(t_0),\\
+	4.&\quad \left\langle \nabla\lambda_n(\vec{x}_0), \bm{\xi}_n(\vec{x}_0)\right\rangle = 0.
+\end{aligned}
+\end{align}
+
+\noindent Here, $n$ is the number of dimensions of the system. In three dimensions, the matrix $\vec{L}(\vec{x}_0)$ takes the form
+
+\begin{equation}\label{eq:L-matrix}
+	\vec{L}(\vec{x}_0) =
+	\begin{bmatrix}
+		\nabla^2\vec{C}^{-1}[\bm{\xi}_3,\bm{\xi}_3,\bm{\xi}_3,\bm{\xi}_3] & 2\frac{\lambda_3-\lambda_1}{\lambda_1\lambda_3}\left\langle \bm{\xi}_1,\nabla\bm{\xi}_3\bm{\xi}_3\right\rangle & 2\frac{\lambda_3-\lambda_2}{\lambda_2\lambda_3}\left\langle \bm{\xi}_2,\nabla\bm{\xi}_3\bm{\xi}_3\right\rangle \\[2ex]
+		2\frac{\lambda_3-\lambda_1}{\lambda_1\lambda_3}\left\langle \bm{\xi}_1,\nabla\bm{\xi}_3\bm{\xi}_3\right\rangle & 2\frac{\lambda_3-\lambda_1}{\lambda_1\lambda_3} & 0 \\[2ex]
+		2\frac{\lambda_3-\lambda_2}{\lambda_2\lambda_3}\left\langle\bm{\xi}_2,\nabla\bm{\xi}_3\bm{\xi}_3\right\rangle & 0 & 2\frac{\lambda_3-\lambda_2}{\lambda_2\lambda_3}
+	\end{bmatrix}.
+\end{equation}
+
+\noindent Note that we have dropped dependence on $t_0$ and $t$ for notational simplicity and adhere to \cite{Haller14}'s convention of $\nabla^2$ denoting the Hessian. In order to simplify condition $2$, we need the following relation given by \cite{Haller14} (for $n=3$)
+
+\begin{equation}\label{eq:Haller_relation}
+\nabla^2\vec{C}^{-1}\left[\bm{\xi}_3,\bm{\xi}_3,\bm{\xi}_3,\bm{\xi}_3\right] = -\frac{1}{\lambda_3^2}\left\langle\bm{\xi}_3,\nabla^2\lambda_3\bm{\xi}_3\right\rangle + 2\sum_{q=1}^{2}\frac{\lambda_3-\lambda_q}{\lambda_3\lambda_q}
+\left\langle\bm{\xi}_q,\nabla\bm{\xi}_3\bm{\xi}_3\right\rangle^2.
+\end{equation}
+
+Now, according to Sylvester's theorem \citep{Sylvester}, the matrix $\vec{L}(\vec{x}_0)$ is positive definite if and only if all its leading principal minors are positive. For the three-dimensional case ($n=3$), this corresponds to the following requirements
+
+\begin{equation}\label{eq:principal_1}
+\nabla^2\vec{C}^{-1}\left[\bm{\xi}_3,\bm{\xi}_3,\bm{\xi}_3,\bm{\xi}_3\right] > 0,
+\end{equation}
+
+\begin{equation}\label{eq:principal_2}
+2\nabla^2\vec{C}^{-1}\left[\bm{\xi}_3,\bm{\xi}_3,\bm{\xi}_3,\bm{\xi}_3\right]\frac{\lambda_3-\lambda_1}{\lambda_1\lambda_3} - 4\frac{(\lambda_3-\lambda_1)^2}{(\lambda_1\lambda_3)^2}\left\langle\bm{\xi}_1,\nabla\bm{\xi}_3\bm{\xi}_3\right\rangle^2 > 0,
+\end{equation}
+
+\noindent and
+
+\begin{equation}\label{eq:principal_3}
+\begin{split}
+& 4\nabla^2\vec{C}^{-1}\left[\bm{\xi}_3,\bm{\xi}_3,\bm{\xi}_3,\bm{\xi}_3\right]\frac{(\lambda_3-\lambda_1)(\lambda_3-\lambda_2)}{\lambda_1\lambda_2\lambda_3^2} \\
+& -8\frac{(\lambda_3-\lambda_1)^2(\lambda_3-\lambda_2)}{\lambda_1^2\lambda_2\lambda_3^3}\left\langle\bm{\xi}_1,\nabla\bm{\xi}_3\bm{\xi}_3\right\rangle^2\\
+& -8\frac{(\lambda_3-\lambda_1)(\lambda_3-\lambda_2)^2}{\lambda_1\lambda_2^2\lambda_3^3}\left\langle\bm{\xi}_2,\nabla\bm{\xi}_3\bm{\xi}_3\right\rangle^2 > 0
+\end{split}.
+\end{equation}
+
+Inserting equation \eqref{eq:Haller_relation} into equations \eqref{eq:principal_1}, \eqref{eq:principal_2}, and \eqref{eq:principal_3} and performing basic algebraic manipulations yields the simplified conditions
+
+\begin{equation}\label{eq:principal_1_simplified}
+\frac{\lambda_3-\lambda_1}{\lambda_1}
+\left\langle\bm{\xi}_1,\nabla\bm{\xi}_3\bm{\xi}_3\right\rangle^2 +
+\frac{\lambda_3-\lambda_2}{\lambda_2}
+\left\langle\bm{\xi}_2,\nabla\bm{\xi}_3\bm{\xi}_3\right\rangle^2
+-\frac{1}{2\lambda_3}\left\langle\bm{\xi}_3,\nabla^2\lambda_3\bm{\xi}_3\right\rangle > 0,
+\end{equation}
+
+\begin{equation}\label{eq:principal_2_simplified}
+\frac{\lambda_3-\lambda_2}{\lambda_2}
+\left\langle\bm{\xi}_2,\nabla\bm{\xi}_3\bm{\xi}_3\right\rangle^2 - 
+\frac{1}{2\lambda_3}\left\langle\bm{\xi}_3,\nabla^2\lambda_3\bm{\xi}_3\right\rangle > 0,
+\end{equation}
+
+\noindent and
+
+\begin{equation}\label{eq:principal_3_simplified}
+\left\langle\bm{\xi}_3,\nabla^2\lambda_3\bm{\xi}_3\right\rangle < 0.
+\end{equation}
+
+Now, note that $\lambda_3 \geq \lambda_2 \geq \lambda_1 > 0$ such that all the scalar prefactors in equations \eqref{eq:principal_1_simplified}-\eqref{eq:principal_3_simplified} are nonnegative. Moreover, the square of the real inner products must be nonnegative. Therefore, whenever condition \eqref{eq:principal_3_simplified} is satisfied, so are equation \eqref{eq:principal_1_simplified} and \eqref{eq:principal_2_simplified}. We are therefore left with equation \eqref{eq:principal_3_simplified} as the simplified condition $2$ in \eqref{eq:Original_ExistenceConditions}.

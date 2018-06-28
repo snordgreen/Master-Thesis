@@ -1,0 +1,497 @@
+% !TEX encoding = UTF-8 Unicode
+%!TEX root = thesis.tex
+% !TEX spellcheck = en-US
+%%=========================================
+\chapter[Results]{Results}\label{ch:Results}
+
+Highlighting the strengths and limitations of the previously outlined method, the present chapter includes results presented as plots and charts, key insights, and accompanying considerations with regard to further application. Starting out by demonstrating the efficacy of our adapted method of geodesic levels in terms of reproducing a reference manifold, we subsequently consider a reference LCS before finally displaying some case examples. In addition to an analytical flow test example, we also investigate the oceanic currents found in a Norwegian fjord, supplied by a gridded velocity field model.
+
+\section{Manifold identification reference test case}\label{sec:GLS_test_cases}
+
+In order to test the performance of the adapted method of geodesic levelsets in terms of computing manifolds defined by equation \eqref{eq:hyperbolic_autonomous_dynamical_system}, an analytical test case was defined according to
+
+\begin{equation}\label{eq:sinefield}
+\bm{\xi}_3(x,y,z) = \begin{pmatrix}
+2\cos(2x)\sin(2y)\\
+2\sin(2x)\cos(2y)\\
+-1
+\end{pmatrix}.
+\end{equation}
+
+\noindent That is, we define a $\bm{\xi}_3$-field by equation \eqref{eq:sinefield} and use that $\bm{\xi}_1$ and $\bm{\xi}_2$ are both orthogonal to $\bm{\xi}_3$ to compute a manifold defined by equation \eqref{eq:hyperbolic_autonomous_dynamical_system}. Starting from the initial position $[\pi,\pi,\pi]$, the target manifold is analytically given by 
+
+\begin{equation}\label{eq:sine_manifold}
+z = f(x,y) = \sin(2x)\sin(2y) + \pi.
+\end{equation}
+
+As to investigate convergence, $7$ manifolds were computed using different mesh densities. Four of the resulting manifolds are presented in figure \ref{fig:sinusoidal_field}, while the input parameters corresponding to figure \ref{fig:sinusoidal_field_c} may be found in table \ref{tab:manifold_parameters}. Note that only the mesh density defining parameters $\delta_{\mathcal{F}}$ and $\Delta_{\mathcal{F}}$, were varied, leaving the remaining input parameters constant.
+
+\begin{table}[h!]
+\begin{center}
+\caption{Manifold computation input parameters applied to the sinusoidal field, spherical LCS, and ABC flow test cases. Note that for sinusoidal field and ABC flow convergence tests, the mesh density parameters $\delta_{\mathcal{F}}$ and $\Delta_{\mathcal{F}}$ were both varied simultaneously. That is, a factor $K$ change in $\delta_{\mathcal{F}}$ was matched with a corresponding factor $K$ change in $\Delta_{\mathcal{F}}$. Parameters expressed in terms of $\delta_{\mathcal{F}}$ were also changed accordingly.}\label{tab:manifold_parameters}
+\bigskip
+\begin{tabular}{cccc}
+\hline
+Parameter & Value & Description\\
+\hline
+$r_{\text{init}}$ & $0.001$ & Radius of initial levelset\\
+$\Delta_{1}$ & $2\delta_{\mathcal{F}}$ & Initial inter-levelset step length\\
+$\delta_{\mathcal{F}}$ & $0.04$ & Minimum nearest neighbor separation\\
+$\Delta_{\mathcal{F}}$ & $0.16$ & Maximum nearest neighbor separation \\
+$\Gamma_{\Delta}$ & $0.005$ & Inter-levelset separation tolerance factor\\
+$\alpha_{\text{min}}$ & $5$ & Minimum axial angular offset ($^{\circ}$)\\
+$\alpha_{\text{max}}$ & $25$ & Maximum axial angular offset ($^{\circ}$) \\
+$(\Delta \alpha)_{\text{min}}$ & $2\alpha_{\text{min}}\delta_{\mathcal{F}}$ & Lower axial angular offset parameter\\
+$(\Delta \alpha)_{\text{max}}$ & $2\alpha_{\text{max}}\delta_{\mathcal{F}}$ & Upper axial angular offset parameter\\
+$l_{\text{max}}$ & $5$ & Maximum arc length to initial separation factor\\
+$q_{\text{max}}$ & $5\delta_{\mathcal{F}}$ & Maximal distance of continuous self-intersections\\
+$r_{\text{max}}$ & $2\pi$ & Maximum cumulative geodesic distance\\
+$\Gamma_{\perp}$ & $10^{-4}$ & Eigenvector field orthogonality tolerance\\
+$c_{\text{arc}}$ & $0.7$ & Noise removal arc length tolerance\\
+
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+As may be seen in figure \ref{fig:sinusoidal_field}, the manifolds computed using minimum inter-levelset separations $\delta_{\mathcal{F}}$ of $0.12$, $0.08$, $0.04$, and $0.01$ all succeed in terms of capturing the large-scale behavior of the target manifold. It is however clear that increased mesh density contributes towards increased accuracy. The relation between mesh density and error for this test case is presented in figure \ref{fig:sinusoidal_errorscaling}. Here, the average absolute value mesh point error $\bar{E}$ is computed as the average of absolute value $z$-offsets between mesh points and the function value of \eqref{eq:sinefield} at the corresponding $xy$-coordinate. Denoting the coordinates of the mesh point $M_{i,j}$ as $x_{i,j}$, $y_{i,j}$, and $z_{i,j}$, respectively, $\bar{E}$ is computed as the LCS mesh point average of
+ 
+\begin{equation}\label{eq:sine_error}
+E_{i,j} = \left|z_{i,j} - \sin(2x_{i,j})\sin(2y_{i,j}) - \pi\right|.
+\end{equation} 
+
+\begin{figure}[h!]
+
+\centering
+\begin{subfigure}[b]{0.45\textwidth}
+\centering
+\input{fig/sinusoidal-minsep=0.2.pgf}
+\caption{$\delta_{\mathcal{F}}=0.20$}\label{fig:sinusoidal_field_a}
+\end{subfigure}
+\begin{subfigure}[b]{0.45\textwidth}
+\centering
+\input{fig/sinusoidal-minsep=0.12.pgf}
+\caption{$\delta_{\mathcal{F}}=0.12$}\label{fig:sinusoidal_field_b}
+\end{subfigure}
+\begin{subfigure}[b]{0.45\textwidth}
+\centering
+\input{fig/sinusoidal-minsep=0.04.pgf}
+\caption{$\delta_{\mathcal{F}}=0.04$}\label{fig:sinusoidal_field_c}
+\end{subfigure}
+\begin{subfigure}[b]{0.45\textwidth}
+\centering
+\input{fig/sinusoidal-minsep=0.01.pgf}
+\caption{$\delta_{\mathcal{F}}=0.01$}\label{fig:sinusoidal_field_d}
+\end{subfigure}
+
+\caption{Convergence test for the sinusoidal field target manifold described in equation \eqref{eq:sine_manifold}. Note that all non-mesh density parameters are kept constant (see table \ref{tab:manifold_parameters}). We notice that, while lacking the apparent smoothness of higher mesh density manifolds, subfigures (a) and (b) display all the appropriate principal characteristics of the target manifold. Moreover, while using approximately a factor $1/16$ as many mesh points as the highest density alternative, the manifold representation in (c) is visually indistinguishable from (d).}\label{fig:sinusoidal_field}
+\end{figure}
+
+\begin{figure}[h!]
+\label{fig:sinusoidal_errorscaling}
+\centering
+\resizebox{0.9\textwidth}{!}{\input{fig/sinusoidal-errorscaling.pgf}}
+\caption{Error scaling of the sinusoidal field (see equation \eqref{eq:sine_manifold}) convergence test. Denoting the average deviation of mesh points from the target manifold $\bar{E}$, this average error is plotted as a function of the minimum nearest neighbor separation $\delta_{\mathcal{F}}$. Using $\delta_{\mathcal{F}}$ as an indicator variable for mesh density, we uncover a quadratic relation $\bar{E}\approx \delta_{\mathcal{F}}^2$. Note that as grid density, that is points per area, is expected to scale with $1/\delta_\mathcal{F}^2$ for this test, we anticipate a reciprocal function relationship between average mesh  point error and mesh density.}\label{fig:sinusoidal_errorscaling}
+\end{figure}
+
+It seems that, in the investigated mesh density interval, the average position error of computed manifold points scales quadratically with the minimum nearest neighbor separation. This is likely primarily due to the decreased interpolation spans necessary to insert ghost ancestor points (see section \ref{sec:grid_management}). Moreover, as the mesh density is increased, the linear mesh interpolation becomes more accurate, accounting for the main visual discrepancies in figure \ref{fig:sinusoidal_field}.
+
+Like manifold point position accuracy, the number of points necessary to constitute a manifold of a given size increases quadratically as minimum nearest neighbor separation is decreased. From this we may infer an approximately reciprocal function relationship between average mesh point error $\bar{E}$ and mesh density. Note that this increased mesh density is expensive both in terms of computation time and working memory. This is because our most expensive operations --- computing trajectories to identify new points and performing self-intersection checks --- scale linearly and quadratically with respect to number of manifold points, respectively. Moreover, our memory requirements naturally increase as the number of mesh points increases. 
+
+%%=========================================
+\section{Lagrangian coherent structure identification reference test case}\label{sec:LCS_test_cases}
+
+Verifying the efficacy of our method for identifying repelling hyperbolic LCSs requires a reference test example. An analytical flow system displaying a single spherical repelling hyperbolic LCS for short time intervals is given by
+
+\begin{equation}\label{eq:spherefield}
+\dot{\vec{x}} = \begin{pmatrix}
+x\sin(\pi(\left|\vec{x}\right|-k))/\left|\vec{x}\right|\\
+y\sin(\pi(\left|\vec{x}\right|-k))/\left|\vec{x}\right|\\
+z\sin(\pi(\left|\vec{x}\right|-k))/\left|\vec{x}\right|
+\end{pmatrix},
+\end{equation}
+
+\noindent where $k$ is the radius of the spherical LCS and $\left|\vec{x}\right|=\sqrt{x²+y²+z²}$. As may be seen in figure \ref{fig:sperical_lm3}, this system exhibits a sharp peak in terms of radial repulsion at $\left|\vec{x}\right|=k$. This was assessed by transporting an evenly distributed $200\times200\times200$ tracer particle grid covering the domain $U = (x,y,z) \in [-2,2]^3$ for $1$ time unit with $k=1$.  The corresponding Cauchy-Green eigenvalues and eigenvectors were then computed as described in chapter \ref{ch:Method}. The resulting average $\bar{\lambda}_3(\left|\vec{x}\right|)$, obtained by use of SVD (see section \ref{sec:SVD}), was then plotted as a function of radius. Given that we have $\dot{\vec{x}}(\left|\vec{x}\right|=1)=0$, there is no non-radial repulsion here. We therefore expect to find a repelling hyperbolic LCS forming a sphere of radius $k=1$. Note that these considerations only hold for short time intervals, as trajectories in equation \eqref{eq:spherefield} eventually converge at stationary points. The rather short time interval of $1$ time unit was chosen to account for this system feature.
+
+\begin{figure}[h!]
+\centering
+\resizebox{0.9\textwidth}{!}{\input{fig/spherical-lm3-afo-radius.pgf}}
+\caption{Domain average $\lambda_3$ as a function of distance from the origin. We notice that, while repulsion remains very modest for most of the interval, we have a sharp peak near $\left|\vec{x}\right|=1$. This result indicates that any manifold following the sphere of radius $\left|\vec{x}\right|=1$ is exceedingly likely to be a repelling hyperbolic LCS, as such a surface would function as a local maximizer in terms of $\lambda_3$.}\label{fig:sperical_lm3}
+\end{figure}
+
+Employing the same particle grid covering the domain $U = (x,y,z) \in [-2,2]^3$, $291$ initial positions within $U_{\text{ABD}}$ (see equations \eqref{eq:LCS_condition_A}, \eqref{eq:LCS_condition_B}, and \eqref{eq:LCS_condition_D}) were computed and used to identify candidate manifolds. Note that these initial positions were selected from a total of $2329833$ candidate positions using $n_f=20$ (see section \ref{sec:candidate_identification}). The resulting manifolds were computed using the parameters displayed in table \ref{tab:manifold_parameters}. Repelling hyperbolic LCSs were then extracted from the candidate manifolds using the method described in section \ref{sec:candidate_identification}, employing a smoothing tolerance of $\Gamma_{\text{ABD}}=1.2$, $A_{\text{min}}=1$, and $\epsilon=0.005$ (see equation \ref{eq:LCS_condition_D}). Note that this $\epsilon$ is one fourth of the tracer initial position grid spacing of $0.02$. The result, displayed in figure \ref{fig:spherical_LCS}, was a total of $3$ LCSs, all clustered at the sphere of radius $k=1$. As the target LCS was successfully reproduced, avoiding false positives, this test example was found to substantiate the efficacy of our method.
+
+\begin{figure}[h!]
+\centering
+\resizebox{0.9\textwidth}{!}{\input{fig/spherical-lcs.pgf}}
+\caption{Identified LCSs in the system described by equation \eqref{eq:spherefield}, considering the time interval $t\in[t_0,t_0+1]$. The resulting LCS structure consists of $3$ component structures, each overlapping onto the sphere of unit radius. Noting the sharp peak in repulsion observed in figure \ref{fig:sperical_lm3}, this result seems reasonable. Moreover, we note from the velocity field definition (see equation \eqref{eq:spherefield}) that $\vec{\dot{x}}(\vec{x})=0$, as long as $\left|\vec{x}\right|=1$. Therefore, at $\left|\vec{x}\right|=1$, all repulsion must necessarily be radial. These considerations prompt us to expect to find this spherical LCS of unit radius.}\label{fig:spherical_LCS}
+\end{figure}
+
+%%=========================================
+\section{Steady ABC flow}\label{sec:steady_abc_flow}
+
+Previously targeted for investigated with regard to LCS theory by for example \cite{Oettinger}, the Arnold-Beltrami-Childress flow (ABC flow) is a three-dimensional solution to the Euler equations given by
+
+\begin{align}\label{eq:steady_ABC_flow}
+\begin{aligned}
+\dot{x} &= A\sin(x) + C\cos(y)\\
+\dot{y} &= B\sin(x) + A\cos(z)\\
+\dot{z} &= C\sin(y) + B\cos(x).
+\end{aligned}
+\end{align}
+
+\noindent Here, $A$, $B$, and $C$ are scalars. Note that the ABC flow is divergence free and displays $2\pi$-periodicity in $x$, $y$, and $z$.
+
+Using the same scalar parameters as \cite{Oettinger}; $A=\sqrt{3}$, $B=\sqrt{2}$, and $C=1$, a grid of $256\times256\times256$ particles evenly distributed over the domain $U$ given by $(x,y,z)\in [0,2\pi]^3$ was advected according to the description in section \ref{sec:tracer_advection} over the time interval $t\in [0,5]$. Having computed the corresponding Cauchy-Green eigenvalues and eigenvectors by use of SVD, continuous $\bm{\xi}_3$-, $\lambda_2$-, and $\lambda_3$-fields were reconstructed by use of periodic tricubic interpolation (see sections \ref{sec:eigenvalue_interpolation} and \ref{sec:eigenvector_interpolation}).
+
+With the purpose of limiting memory requirements, as well as computation time --- while still preserving reasonable manifold accuracy --- convergence tests were conducted in order to determine adequate mesh density for this system. A representative result, focusing on a single manifold, is displayed in figure \ref{fig:convergence_test}. We notice that more details are distinguished as mesh density is increased. It is however clear that all displayed manifold reproductions capture the same principal structures. Moreover, we observe that the manifold reproduction presented in figure \ref{fig:convergence_test_d} exhibits some undesirable behavior. Specifically, the bulge visible at approximately $x=2$, $y=2$, $z=1.5$ may be the result of numerical noise, as this structure seems uncharacteristic of the surrounding neighborhood.
+
+\begin{figure}[h!]
+
+\centering
+\begin{subfigure}[b]{0.45\textwidth}
+\centering
+\input{fig/convergence-minsep=0.16-small.pgf}
+\caption{$\delta_{\mathcal{F}}=0.16$}\label{fig:convergence_test_a}
+\end{subfigure}
+\begin{subfigure}[b]{0.45\textwidth}
+\centering
+\input{fig/convergence-minsep=0.08-small.pgf}
+\caption{$\delta_{\mathcal{F}}=0.08$}\label{fig:convergence_test_b}
+\end{subfigure}
+\begin{subfigure}[b]{0.45\textwidth}
+\centering
+\input{fig/convergence-minsep=0.04-small.pgf}
+\caption{$\delta_{\mathcal{F}}=0.04$}\label{fig:convergence_test_c}
+\end{subfigure}
+\begin{subfigure}[b]{0.45\textwidth}
+\centering
+\input{fig/convergence-minsep=0.01-small.pgf}
+\caption{$\delta_{\mathcal{F}}=0.01$}\label{fig:convergence_test_d}
+\end{subfigure}
+
+\caption{Convergence test for a selected steady ABC flow manifold. Note that all non-mesh density parameters are kept constant (see table \ref{tab:manifold_parameters}). We also notice that while lacking the apparent smoothness of higher mesh density manifolds, figures (a) and (b) display all the appropriate principal characteristics of the higher density representations. Another interesting aspect of this convergence test is the noise increase observed for $\delta_{\mathcal{F}}=0.01$. That is, we observe oscillatory behavior that is uncharacteristic of the surrounding domain.}\label{fig:convergence_test}
+\end{figure}
+
+Noting our previous considerations with respect to performance and accuracy highlighted in section \ref{sec:GLS_test_cases}, as well as the noise found in very high density meshes, it seems reasonable to continue using the input parameters displayed in table \ref{tab:manifold_parameters}. Limiting mesh density according to these parameters allows us to compute sufficiently large manifolds without exhausting available memory.
+
+Given that all trajectories defined by equation \eqref{eq:traj_linear_combination} should be entirely contained in a single manifold, such trajectories are useful in terms of confirming manifold behavior. As can be seen in the example case displayed in figure \ref{fig:manifold_trajectories_a}, developing $200$ trajectories from the same initial position on the manifold substantiates that our selected manifold successfully captures the dynamics of the interpolated Cauchy-Green eigenvector field. This was generally found to be the case. Note that these trajectories are each defined as a unique linear combination of $\bm{\xi}_1$ and $\bm{\xi}_2$.
+
+While displaying convincing agreement with our manifold representation, we observe that these trajectories in $\bm{\xi}_1$ and $\bm{\xi}_2$ tend to converge on some parts of the manifold, while evading other regions. In order to confirm the behavior of the manifold in these evaded regions, a second set of tests were carried out using radially forced trajectories (see equation \eqref{eq:force_radially_outward}). Still employing the test case from figure \ref{fig:manifold_trajectories_a}, these trajectories are presented in figure \ref{fig:manifold_trajectories_b}. The highly convincing agreement between these trajectories and our manifold representation is however expected, as all manifold points are computed using trajectories defined by equation \eqref{eq:force_radially_outward}.
+
+\begin{figure}[h!] 
+
+\centering
+\begin{subfigure}[b]{0.45\textwidth}
+\centering
+\input{fig/verification-notforced-small.pgf}
+\caption{Trajectories as linear combinations\\ of $\bm{\xi}_1(\vec{x}_0)$ and $\bm{\xi}_2(\vec{x}_0)$ superimposed onto\\ a sample manifold.}\label{fig:manifold_trajectories_a}
+\end{subfigure}
+\begin{subfigure}[b]{0.45\textwidth}
+\centering
+\input{fig/verification-forced-small.pgf}
+\caption{Forced radial trajectories computed according to equation \eqref{eq:force_radially_outward} superimposed onto a sample manifold.}\label{fig:manifold_trajectories_b}
+\end{subfigure}
+
+\caption{Trajectories within the target manifold defined by equation \eqref{eq:hyperbolic_autonomous_dynamical_system} superimposed onto the corresponding sample computed manifold. Notice that while the trajectories in (a) correspond very well to the computed manifold, they converge and diverge according to the local nature of the underlying field, making certain regions hard to investigate. In order to propely verify the manifold behavior in these regions, a second test was devised by use of the forced radial trajectories described in section \ref{sec:force_radially_outward}. Note that the highly convincing agreement displayed in (b) is unsurprising, as these trajectories are computed in the same way as the manifold mesh points.}\label{fig:manifold_trajectories}
+\end{figure}
+
+Using the Cauchy-Green eigenvector and eigenvalue fields with equations \eqref{eq:LCS_condition_A}, \eqref{eq:LCS_condition_B}, and \eqref{eq:LCS_condition_D}, we evaluate the previously described $256\times256\times256$ particle grid according to the method described in section \ref{sec:candidate_identification}. The grid points that satisfy conditions A, B, and D, not only form our set of manifold initial positions, but also approximate the underlying ABD subdomain $U_{\text{ABD}}$, where LCSs may exist. This ABD subdomain representation corresponding to the steady ABC flow of equation \ref{eq:steady_ABC_flow} is displayed in figure \ref{fig:time_indep_ABD}. 
+
+\begin{figure}[h!] 
+
+\centering
+\begin{subfigure}[b]{0.45\textwidth}
+\centering
+\input{fig/indep-abd-domain-view1-small.pgf}
+\caption{ABD subdomain viewed along the $z$-axis.}\label{fig:time_indep_ABD_a}
+\end{subfigure}
+\begin{subfigure}[b]{0.45\textwidth}
+\centering
+\input{fig/indep-abd-domain-view2-small.pgf}
+\caption{ABD subdomain viewed along the $y$-axis.}\label{fig:time_indep_ABD_b}
+\end{subfigure}
+\begin{subfigure}[b]{0.45\textwidth}
+\centering
+\input{fig/indep-abd-domain-view3-small.pgf}
+\caption{ABD subdomain viewed along the $x$-axis.}\label{fig:time_indep_ABD_c}
+\end{subfigure}
+\begin{subfigure}[b]{0.45\textwidth}
+\centering
+\input{fig/indep-abd-domain-view4-small.pgf}
+\caption{ABD subdomain isometric view.}\label{fig:time_indep_ABD_d}
+\end{subfigure}
+
+\caption{Steady ABC flow subdomain $U_{\text{ABD}}$ from various viewing angles. The ABD subdomain is here represented as a partly transparent scatter plot of the constituent tracer initial position grid points. That is, degree of coloring indicates ABD subdomain concentration along the respective viewing angles. Note the clearly distinct tubular structures, particularly visible in (b) and (c).}\label{fig:time_indep_ABD}
+\end{figure}
+
+Selecting $618$ initial positions from the gridded steady ABC flow ABD subdomain of $340951$ candidate positions using $n_f=8$, manifolds were developed and LCSs extracted according to the method described in chapter \ref{ch:Method}. These LCSs were extracted using an ABD subdomain tolerance $\Gamma_{\text{ABD}}$ of $1.75$ (see section \ref{sec:candidate_identification}), a minimum pseudo-surface area of $A_{\text{min}}=6$, and $\epsilon=0.005$. Note that this $\epsilon$ corresponds to approximately one fifth of the tracer initial position grid spacing. The resulting LCS structure, consisting of $22$ LCS element surfaces, is highlighted in figure \ref{fig:time_indep_LCS}. We observe that although $22$ LCS surfaces were identified, these form two largely smooth and coherent structures. While these structures are partly connected, they are clearly distinct and therefore highlighted in different colors. Note the clear correspondence between our ABD subdomain and the accompanying LCSs. This is particularly evident when inspecting figure \ref{fig:time_indep_ABD_b} and figure \ref{fig:time_indep_LCS_b}, noticing the middle-right side tubular structure. Note that the viewing angles of figures \ref{fig:time_indep_ABD_a}, \ref{fig:time_indep_ABD_b}, \ref{fig:time_indep_ABD_c}, and \ref{fig:time_indep_ABD_d} correspond to those of figures \ref{fig:time_indep_LCS_a}, \ref{fig:time_indep_LCS_b}, \ref{fig:time_indep_LCS_c}, and \ref{fig:time_indep_LCS_d}, respectively. 
+
+\begin{figure}[h!] 
+
+\centering
+\begin{subfigure}[b]{0.45\textwidth}
+\centering
+\input{fig/indep-lcss-view1-small.pgf}
+\caption{LCSs viewed along the $z$-axis.}\label{fig:time_indep_LCS_a}
+\end{subfigure}
+\begin{subfigure}[b]{0.45\textwidth}
+\centering
+\input{fig/indep-lcss-view2-small.pgf}
+\caption{LCSs viewed along the $y$-axis.}\label{fig:time_indep_LCS_b}
+\end{subfigure}
+\begin{subfigure}[b]{0.45\textwidth}
+\centering
+\input{fig/indep-lcss-view3-small.pgf}
+\caption{LCSs viewed along the $x$-axis.}\label{fig:time_indep_LCS_c}
+\end{subfigure}
+\begin{subfigure}[b]{0.45\textwidth}
+\centering
+\input{fig/indep-lcss-view4-small.pgf}
+\caption{LCS isometric view.}\label{fig:time_indep_LCS_d}
+\end{subfigure}
+
+\caption{Steady ABC flow repelling hyperbolic LCSs from various viewing angles, each main structure indicated by distinct coloring. Note the agreement between the ABD subdomain displayed in \ref{fig:time_indep_ABD} and the corresponding LCSs.}\label{fig:time_indep_LCS}
+\end{figure}
+
+Having extracted repelling hyperbolic LCSs from manifold candidates, we expect particles initially situated on opposite sides of the LCS to diverge rapidly under advection in the original velocity field over the considered time interval. As highlighted in figure \ref{fig:blobtest}, this was tested by advecting two sets of initial positions, each situated on opposite sides of an identified LCS over the considered time interval $t\in [0,5]$. We observe that while the LCS triangulation breaks down, the opposite-side particle groups have diverged notably from figure \ref{fig:blobtest_a} to \ref{fig:blobtest_b}. Moreover, each particle group remains fairly compact, indicating that the region of large stretching is situated between them. Note the large stretching observable between the LCS mesh points. From this we infer that the target LCS crosses our LCS reproduction, leaving significant portions of the mesh points on each side. This behavior is not unexpected, as LCSs have infinitesimal width. Due to this infinitesimal width, any numerical errors are expected to leave LCS mesh points slightly off the target LCS. 
+
+\begin{figure}[h!] 
+
+\centering
+\begin{subfigure}[b]{0.45\textwidth}
+\centering
+\input{fig/blobtest-pre-small.pgf}
+\caption{Sample LCS and selected tracers prior\\ to advection ($t=t_0$).}\label{fig:blobtest_a}
+\end{subfigure}
+\begin{subfigure}[b]{0.45\textwidth}
+\centering
+\input{fig/blobtest-post-small.pgf}
+\caption{Sample LCS points, as well as the selected tracer points after advection ($t=t_0+5$).}\label{fig:blobtest_b}
+\end{subfigure}
+
+\caption{LCS fragment along with selected tracer particles prior to and after advection over the selected time interval $t\in [0,5]$. Note that while the coherent LCS surface structure breaks down after advection, the selected tracer particles are clearly separated based on initial placement. Also notice the change in scale between (a) and (b), witnessing the large repulsion we expect to find at the LCS. While the breakdown of the LCS surface structure is undesirable, it is not unexpected. This is because the infinitesimal width of the target LCS structure makes mesh point placement error unavoidable. An accurate LCS identification algorithm is therefore still likely to place similar portions of the constituent mesh points on each side of the actual LCS, likely resulting in extensive stretching like we observe in (b).}\label{fig:blobtest}
+\end{figure}
+
+%===================================
+\section{Unsteady ABC flow}\label{sec:unsteady_abc_flow}
+
+As demonstrated by \cite{Oettinger}, we may modify the ABC flow system by perturbing the scalar parameters $A$, $B$, and $C$, producing a similar unsteady flow example. This system is defined by
+
+\begin{align}\label{eq:unsteady_abc_flow}
+\begin{aligned}
+\dot{x} &= A\sin(x) + \tilde{C}(t)\cos(y)\\
+\dot{y} &= \tilde{B}(t)\sin(x) + A\cos(z)\\
+\dot{z} &= \tilde{C}(t)\sin(y) + \tilde{B}(t)\cos(x)
+\end{aligned}.
+\end{align}
+
+\noindent where
+
+\begin{align}\label{eq:perturbation}
+\begin{aligned}
+\tilde{B}(t) &= B + B\cdot k_0\tanh(k_1t)\cos((k_2t)²)\\
+\tilde{C}(t) &= C + C\cdot k_0\tanh(k_1t)\sin((k_3t)²)
+\end{aligned}.
+\end{align}
+
+Like \cite{Oettinger}, we choose $k_0=0.3$, $k_1=0.5$, $k_2=1.5$, and $k_3=1.8$. The effect of introducing this time dependence can be seen in figure \ref{fig:coefficients}. We observe that the range of the oscillations in $\tilde{B}$ and $\tilde{C}$ is over half the magnitude of $B$ and $C$, respectively. We therefore expect significant differences in terms of field behavior, although the principal field behavior remains. 
+
+\begin{figure}[h!] 
+\centering
+\resizebox{0.9\textwidth}{!}{\input{fig/dep-bc-coeff.pgf}}
+\caption{ABC flow coefficient perturbations over time $\tau$. We note that the perturbations to $B=\sqrt{2}$ and $C=1$ involve oscillations of range approximately equal to half the unperturbed coefficients.}\label{fig:coefficients}
+\end{figure}
+
+Treating this unsteady flow system in the same way as its steady counterpart (see section \ref{sec:steady_abc_flow}), we arrive at the ABD subdomain displayed in figure \ref{fig:time_dep_ABD}. This result is surprisingly similar to its steady flow equivalent, displaying all the same principal structures. There are however significant differences, both in terms of the sizes of the ABD subdomain openings, as well as the general distribution density of ABD subdomain points. For example, by closely inspecting figures \ref{fig:time_indep_ABD_a} and \ref{fig:time_dep_ABD_a}, we notice that the upper middle gap structure is somewhat larger in the unsteady case. We also notice that the rather sharp outlines visible in figure \ref{fig:time_indep_ABD_b} are accompanied by larger dark patches, indicating high density of ABD subdomain points in figure \ref{fig:time_dep_ABD_b}. Again, note that the viewing angles of figures \ref{fig:time_indep_ABD_a}, \ref{fig:time_indep_ABD_b}, \ref{fig:time_indep_ABD_c}, and \ref{fig:time_indep_ABD_d} correspond to those of figures \ref{fig:time_dep_ABD_a}, \ref{fig:time_dep_ABD_b}, \ref{fig:time_dep_ABD_c}, and \ref{fig:time_dep_ABD_d}, respectively.
+
+\begin{figure}[h!]
+
+\centering
+\begin{subfigure}[b]{0.45\textwidth}
+\centering
+\input{fig/dep-abd-domain-view1-small.pgf}
+\caption{ABD subdomain viewed along the $z$-axis.}\label{fig:time_dep_ABD_a}
+\end{subfigure}
+\begin{subfigure}[b]{0.45\textwidth}
+\centering
+\input{fig/dep-abd-domain-view2-small.pgf}
+\caption{ABD subdomain viewed along the $y$-axis.}\label{fig:time_dep_ABD_b}
+\end{subfigure}
+\begin{subfigure}[b]{0.45\textwidth}
+\centering
+\input{fig/dep-abd-domain-view3-small.pgf}
+\caption{ABD subdomain viewed along the $x$-axis.}\label{fig:time_dep_ABD_c}
+\end{subfigure}
+\begin{subfigure}[b]{0.45\textwidth}
+\centering
+\input{fig/dep-abd-domain-view4-small.pgf}
+\caption{ABD subdomain isometric view.}\label{fig:time_dep_ABD_d}
+\end{subfigure}
+
+\caption{Unsteady ABC flow subdomain $U_{\text{ABD}}$ from various viewing angles. The ABD subdomain is here represented as a partly transparent scatter plot of the constituent tracer initial position grid points. That is, degree of coloring indicates ABD subdomain concentration along the respective viewing angles. Note the clearly distinct tubular structures, particularly visible in (b) and (c), as well as the apparent similarities to the steady ABC flow ABD subdomain (see figure \ref{fig:time_indep_ABD}).}\label{fig:time_dep_ABD}
+\end{figure}
+
+Once again, we treat this unsteady ABC flow case in the same way as its steady equivalent. Now with $676$ initial positions extracted from $361461$ candidate positions using $n_f=8$, we develop manifolds using the parameters displayed in table \ref{tab:manifold_parameters}. LCSs are then extracted using $\Gamma_{\text{ABD}}=1.75$, $A_{\text{min}}=6$ and $\epsilon=0.005$. Note that this $\epsilon$ again corresponds to approximately one fifth of the tracer initial position grid spacing. The resulting LCS formations are presented in figure \ref{fig:time_dep_LCS}. These structures consist of $31$ LCS surface elements organized into three separate formations indicated by coloring. Although displaying larger differences from its steady counterpart (see figure \ref{fig:time_indep_LCS}) than seen for the steady and unsteady ABD subdomains, there are clear similarities. This is particularly clear when inspecting figures \ref{fig:time_indep_ABD_b} and \ref{fig:time_dep_ABD_b}, as well as figures  \ref{fig:time_indep_ABD_d} and \ref{fig:time_dep_ABD_d}. We notice that the two largest structures in the unsteady case correspond very well to the structures found in the steady case. In addition to these we have gained a third formation, separate from the original two. This new addition seems reasonable by inspection of the accompanying ABD subdomain, for instance completing the middle-left tubular structure now visible in both figures \ref{fig:time_dep_ABD_b} and \ref{fig:time_dep_LCS_b}. 
+
+\begin{figure}[h!]
+
+\centering
+\begin{subfigure}[b]{0.45\textwidth}
+\centering
+\input{fig/dep-lcss-view1-small.pgf}
+\caption{LCSs viewed along the $z$-axis.}\label{fig:time_dep_LCS_a}
+\end{subfigure}
+\begin{subfigure}[b]{0.45\textwidth}
+\centering
+\input{fig/dep-lcss-view2-small.pgf}
+\caption{LCSs viewed along the $y$-axis.}\label{fig:time_dep_LCS_b}
+\end{subfigure}
+\begin{subfigure}[b]{0.45\textwidth}
+\centering
+\input{fig/dep-lcss-view3-small.pgf}
+\caption{LCSs viewed along the $x$-axis.}\label{fig:time_dep_LCS_c}
+\end{subfigure}
+\begin{subfigure}[b]{0.45\textwidth}
+\centering
+\input{fig/dep-lcss-view4-small.pgf}
+\caption{LCS isometric view.}\label{fig:time_dep_LCS_d}
+\end{subfigure}
+
+\caption{Unsteady ABC flow repelling hyperbolic LCSs from various viewing angles, each main formation indicated by distinct coloring. Note the agreement between the ABD subdomain displayed in \ref{fig:time_indep_ABD} and the corresponding LCSs. Moreover, two of the three identified LCSs are very similar to the steady ABC flow LCSs displayed in figure \ref{fig:time_indep_LCS}.}\label{fig:time_dep_LCS}
+\end{figure}
+
+%%=========================================
+\section{Gridded ocean model data example}\label{sec:fjord}
+
+More typical of real world application, we finally apply our method to a gridded model data set describing the oceanic currents of the Førde fjord in western Norway. This case is of particular interest due to current plans for using the fjord as a mine tailings deposit. The data set covers large parts of the fjord over six days, using time steps of one hour. However, as tracer behavior at the coastline is ill-defined, tracer initial positions were selected within a $500\times 500$ m region in the middle of the fjord. In this way we ensure that very few tracers reach the coastline. The exact location of this domain $U$ within the larger Førde fjord area may be found highlighted by a white square frame in figure \ref{fig:map}. 
+
+\begin{figure}[h!] 
+\centering
+\resizebox{0.9\textwidth}{!}{\input{fig/currentmap-hires.pgf}}
+\caption{Overview of the outer Førde fjord area. Note the white square frame specifying the investigated domain within the larger gridded model domain, indicated by current vectors and dynamic coloring. Here, darker colors signify larger depths. The surrounding area is shaded in light blue and green to indicate water bodies and land area, respectively.}\label{fig:map}
+\end{figure}
+
+%\begin{figure}[h!] 
+%\centering
+%\resizebox{0.9\textwidth}{!}{\import{/fig}{currentmap-hires.pgf}}
+%\caption{PLACEHOLDER}\label{fig:map}
+%\end{figure}
+
+Consisting of a rectangular velocity field grid, the Førde fjord data set has a constant nearest neighbor grid point separation within the horizontal plane of $53.3$ m. Vertical resolution is however variable, with grid points separated by $5$-$25$ m from $50$ m depth to 300 m. Using the entire fjord velocity data set, a $200\times 200\times 100$ regular tracer grid, covering the domain $U$, was advected over a $12$-hour period, using the velocity field interpolation described in section \ref{sec:velocity_interpolation}. Again computing continuous Cauchy-Green eigenvalue and eigenvector fields, from gridded data (see sections sections \ref{sec:SVD}, \ref{sec:eigenvalue_interpolation}, and \ref{sec:eigenvector_interpolation}), $1631$ manifold initial positions were identified from $209945$ candidate positions using $n_f=5$. This ABD subdomain is presented in figure \ref{fig:fjord_ABD_domain}.
+
+\begin{figure}[h!]
+
+\centering
+\begin{subfigure}[b]{0.45\textwidth}
+\centering
+\input{fig/fjord-abd-domain-view1-small-new.pgf}
+\caption{ABD subdomain viewed along the $z$-axis.}\label{fig:fjord_ABD_domain_a}
+\end{subfigure}
+\begin{subfigure}[b]{0.45\textwidth}
+\centering
+\input{fig/fjord-abd-domain-view2-small-new.pgf}
+\caption{ABD subdomain viewed along the $y$-axis.}\label{fig:fjord_ABD_domain_b}
+\end{subfigure}
+\begin{subfigure}[b]{0.45\textwidth}
+\centering
+\input{fig/fjord-abd-domain-view3-small-new.pgf}
+\caption{ABD subdomain viewed along the $x$-axis.}\label{fig:fjord_ABD_domain_c}
+\end{subfigure}
+\begin{subfigure}[b]{0.45\textwidth}
+\centering
+\input{fig/fjord-abd-domain-view4-small-new.pgf}
+\caption{ABD subdomain isometric view.}\label{fig:fjord_ABD_domain_d}
+\end{subfigure}
+
+\caption{Fjord current ABD subdomain from various viewing angles, $z=0$ corresponding to the fjord surface. The ABD subdomain is here represented as a partly transparent scatter plot of the constituent tracer initial position grid points. That is, degree of coloring indicates ABD subdomain concentration along the respective viewing angles. Note the clearly distinct horizontal layers, particularly visible in (b) and (c).}\label{fig:fjord_ABD_domain} 
+\end{figure}
+
+Having computed the corresponding manifolds with the parameters summarized in table \ref{tab:fjord_manifold_parameters}, LCSs were extracted using $\Gamma_{\text{ABD}}=1.2$, $A_{\text{min}}=20000$ m$^2$, and $\epsilon=0.1$ m. Note that this $\epsilon$ corresponds to approximately $1/25$ of the tracer initial position grid spacing. The resulting LCSs are displayed in figure \ref{fig:fjord_LCS}, where LCS surface segments have been shaded according to relative average normal repulsion (measured by $\bar{\lambda}_3$). The more strongly repelling LCS segment surfaces are colored bright yellow while less repelling ones are indicated by darker colors. Specifically, coloring was determined according to
+
+\begin{equation}
+\gamma = \frac{\log \bar{\lambda}_3}{\text{max}(\log \bar{\lambda}_3)},
+\end{equation}
+
+\noindent where $\gamma$ corresponds to the color scale displayed in figure \ref{fig:fjord_LCS_bar}. Notice how the domain boundary LCS behavior is captured in figure \ref{fig:fjord_LCS}. This boundary description was enabled by imposing periodic boundary conditions on the eigenvector interpolator (see section \ref{sec:boundary_treatment}). 
+
+Note how the nearly horizontal layers observable in figures \ref{fig:fjord_ABD_domain_b} and \ref{fig:fjord_ABD_domain_c} are recovered in the LCS structure, visible in figures \ref{fig:fjord_LCS_b} and \ref{fig:fjord_LCS_c}. This indicates limited vertical mixing of horizontal water layers in the investigated fjord region. An LCS neighbor tracer advection test, similar to that of figure \ref{fig:blobtest}, for the most repelling fjord LCS is displayed in figure \ref{fig:fjord_blob_test}. The clear separation of opposite-side neighboring tracers seems to confirm the transport barrier characteristics of the intervening LCS surface.
+
+\begin{table}[h!]
+\begin{center}
+\caption{Manifold computation input parameters applied to the Førde fjord test cases. Note that the units of derived input parameters correspond to those of their constituent base parameters.}\label{tab:fjord_manifold_parameters}
+\bigskip
+\begin{tabular}{cccc}
+\hline
+Parameter & Value & Description\\
+\hline
+$r_{\text{init}}$ & $0.1$ & Radius of initial levelset (m)\\
+$\Delta_{1}$ & $4$ & Initial inter-levelset step length (m)\\
+$\delta_{\mathcal{F}}$ & $2$ & Minimum nearest neighbor separation (m)\\
+$\Delta_{\mathcal{F}}$ & $8$ & Maximum nearest neighbor separation (m)\\
+$\Gamma_{\Delta}$ & $0.005$ & Inter-levelset separation tolerance factor\\
+$\alpha_{\text{min}}$ & $5$ & Minimum axial angular offset (${^\circ}$)\\
+$\alpha_{\text{max}}$ & $25$ & Maximum axial angular offset (${^\circ}$)\\
+$(\Delta \alpha)_{\text{min}}$ & $2\alpha_{\text{min}}\delta_{\mathcal{F}}$ & Lower axial angular offset parameter\\
+$(\Delta \alpha)_{\text{max}}$ & $2\alpha_{\text{max}}\delta_{\mathcal{F}}$ & Upper axial angular offset parameter\\
+$l_{\text{max}}$ & $5$ & Maximum arc length to initial separation factor\\
+$q_{\text{max}}$ & $5\delta_{\mathcal{F}}$ & Maximal distance of continuous self-intersections\\
+$r_{\text{max}}$ & $20000$ & Maximum cumulative geodesic distance (m)\\
+$\Gamma_{\perp}$ & $10^{-4}$ & Eigenvector field orthogonality tolerance\\
+$c_{\text{arc}}$ & $0.7$ & Noise removal arc length tolerance\\
+
+\hline
+\end{tabular}
+\end{center}
+\end{table} 
+
+\begin{figure}[h!] 
+
+\centering
+\begin{subfigure}[b]{0.40\textwidth}
+\centering
+\input{fig/fjord-lcss-view1-small-new.pgf}
+\caption{LCSs viewed along the $z$-axis.}\label{fig:fjord_LCS_a}
+\end{subfigure}
+\begin{subfigure}[b]{0.40\textwidth}
+\centering
+\input{fig/fjord-lcss-view2-small-new.pgf}
+\caption{LCSs viewed along the $y$-axis.}\label{fig:fjord_LCS_b}
+\end{subfigure}
+\begin{subfigure}[b]{0.40\textwidth}
+\centering
+\input{fig/fjord-lcss-view3-small-new.pgf}
+\caption{LCSs viewed along the $x$-axis.}\label{fig:fjord_LCS_c}
+\end{subfigure}
+\begin{subfigure}[b]{0.40\textwidth}
+\centering
+\input{fig/fjord-lcss-view4-small-new.pgf}
+\caption{LCS isometric view.}\label{fig:fjord_LCS_d}
+\end{subfigure}
+
+\begin{subfigure}[b]{0.80\textwidth}
+\centering
+%\input{fig/fjord-lcs-colorbar.png}
+\includegraphics{fig/fjord-lcs-colorbar.png}
+\caption{LCS surface element repulsion color scale. LCS surface element color value is computed as the log of its average repulsion (see section \ref{sec:candidate_identification}) divided by the log of the largest observed average repulsion.}\label{fig:fjord_LCS_bar}
+\end{subfigure}
+
+\caption{Fjord current repelling hyperbolic LCSs from various viewing angles, each surface element's repulsion rate indicated by its color. Note the agreement between the ABD subdomain displayed in \ref{fig:fjord_ABD_domain} and the corresponding LCSs. Like in figure \ref{fig:fjord_ABD_domain}, $z=0$ indicates the fjord surface.}\label{fig:fjord_LCS}
+\end{figure}
+
+\begin{figure}[h!] 
+
+\centering
+\begin{subfigure}[b]{0.45\textwidth}
+\centering
+\input{fig/blobtest-fjord-pre-small.pgf}
+\caption{Sample LCS and selected tracers prior\\ to advection (June 13 2013, 00:00).}\label{fig:fjod_blob_test_a}
+\end{subfigure}
+\begin{subfigure}[b]{0.45\textwidth}
+\centering
+\input{fig/blobtest-fjord-post-small.pgf}
+\caption{Sample LCS points and selected tracer points after advection (June 1 2013, 12:00).}\label{fig:fjord_blob_test_b}
+\end{subfigure}
+
+\caption{LCS fragment along with selected tracer particles prior to and after advection over the selected time interval of $12$ hours. Note that while the coherent LCS surface structure breaks down after advection, the selected tracer particles are clearly separated based on initial placement. Although the partial breakdown of the LCS surface structure is undesirable, it not unexpected. This is because the infinitesimal width of the target LCS structure makes mesh point placement error unavoidable. An accurate LCS identification algorithm is therefore still likely to place similar portions of the constituent mesh points on each side of the actual LCS, likely resulting in some stretching like we observe in (b).}\label{fig:fjord_blob_test}
+\end{figure}
